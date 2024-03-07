@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "usuario")
-public class usuarios {
+public class Usuarios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
@@ -26,5 +26,5 @@ public class usuarios {
     @JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(
             name = "usuario_id", referencedColumnName = "id_usuario")
             ,inverseJoinColumns = @JoinColumn (name = "role_id",referencedColumnName = "id_role"))
-    private List<roles> roles = new ArrayList<>();
+    private List<Roles> roles = new ArrayList<>();
 }
