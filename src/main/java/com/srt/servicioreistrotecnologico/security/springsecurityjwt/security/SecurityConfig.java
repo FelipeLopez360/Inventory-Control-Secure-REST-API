@@ -3,6 +3,7 @@ package com.srt.servicioreistrotecnologico.security.springsecurityjwt.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -47,6 +48,10 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()// toda peticion http debe ser autorizada
                 .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers(HttpMethod.GET,"URL").hasAnyAuthority("ADMIN","USER")
+                .requestMatchers(HttpMethod.POST,"URL").hasAnyAuthority("ADMIN", "USER") //! hasAnyAuthority para multiples roles
+                .requestMatchers(HttpMethod.PUT,"URL").hasAuthority("ADMIN") //! hasAuthority para un solo rol
+                .requestMatchers(HttpMethod.DELETE,"URL").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
