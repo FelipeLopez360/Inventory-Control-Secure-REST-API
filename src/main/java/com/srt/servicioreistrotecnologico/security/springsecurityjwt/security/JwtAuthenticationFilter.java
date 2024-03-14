@@ -18,6 +18,7 @@ import java.util.List;
 
 // la funcion de esta clase es validar la información del token y si es exitoso esta sera la autenticación en la solicitud en postman.
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
     @Autowired
     private CustomUsersDetailsService customUsersDetailsService;
 

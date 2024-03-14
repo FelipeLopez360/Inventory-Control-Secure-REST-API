@@ -15,9 +15,9 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_producto")
     private Long idProducto;
-    private String nobreProducto;
+    private String nombreProducto;
     private String marcaProducto;
-    private Long cantidadProdcuto;
+    private Long cantidadProducto;
     private Long precioProducto;
     private String categoriaProducto;
     private String ubicacionProducto;

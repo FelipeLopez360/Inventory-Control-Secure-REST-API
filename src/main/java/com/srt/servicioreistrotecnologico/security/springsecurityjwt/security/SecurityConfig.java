@@ -48,10 +48,11 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()// toda peticion http debe ser autorizada
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers(HttpMethod.GET,"URL").hasAnyAuthority("ADMIN","USER")
-                .requestMatchers(HttpMethod.POST,"URL").hasAnyAuthority("ADMIN", "USER") //! hasAnyAuthority para multiples roles
-                .requestMatchers(HttpMethod.PUT,"URL").hasAuthority("ADMIN") //! hasAuthority para un solo rol
-                .requestMatchers(HttpMethod.DELETE,"URL").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET,"/api/producto").hasAnyAuthority("ADMIN","USER")
+                .requestMatchers(HttpMethod.GET,"/api/producto/buscar/**").hasAnyAuthority("ADMIN","USER")
+                .requestMatchers(HttpMethod.POST,"/api/producto/agregar").hasAnyAuthority("ADMIN", "USER") //! hasAnyAuthority para multiples roles
+                .requestMatchers(HttpMethod.PUT,"/api/producto/editar/**").hasAuthority("ADMIN") //! hasAuthority para un solo rol
+                .requestMatchers(HttpMethod.DELETE,"/api/producto/eliminar/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

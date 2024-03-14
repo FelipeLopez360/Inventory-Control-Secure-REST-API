@@ -13,5 +13,5 @@ public interface IUsuariosRepository extends JpaRepository<Usuarios, Long> {
     Optional<Usuarios> findByUsername(String username);
 
     // metodo para poder verificar si existe usuario en base de datos
-    boolean existsByUsername(String username);
+    Boolean existsByUsername(String username);
 }
