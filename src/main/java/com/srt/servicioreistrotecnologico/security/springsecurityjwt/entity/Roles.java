@@ -15,5 +15,11 @@ public class Roles {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "id_role")
     private Long idRole;
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private String name;
+
+
+    public Roles get() {
+        return null;
+    }
 }
