@@ -42,11 +42,11 @@ public class RestControllerAuth {
     // metodo para registro de usuarios con rol USER
     @PostMapping("registro")
     public ResponseEntity<String> registrar(@RequestBody DtoRegistro dtoRegistro){
-        if (usuariosRepository.existsByUsername(dtoRegistro.getUserName())){
+        if (usuariosRepository.existsByUsername(dtoRegistro.getUsername())){
             return new ResponseEntity<>("El usuario ya existe, intenta con otro. ", HttpStatus.BAD_REQUEST);
         }
         Usuarios usuarios = new Usuarios();
-        usuarios.setUsername(dtoRegistro.getUserName());
+        usuarios.setUsername(dtoRegistro.getUsername());
         usuarios.setPassword(passwordEncoder.encode(dtoRegistro.getPassword()));
         Roles roles = rolesRepository.findByName("USER").get();
         usuarios.setRoles(Collections.singletonList(roles));
@@ -56,11 +56,11 @@ public class RestControllerAuth {
     // metodo para registro de usuarios con rol ADMIN
     @PostMapping("registro/admin")
     public ResponseEntity<String> registrarAdmin(@RequestBody DtoRegistro dtoRegistro){
-        if (usuariosRepository.existsByUsername(dtoRegistro.getUserName())){
+        if (usuariosRepository.existsByUsername(dtoRegistro.getUsername())){
             return new ResponseEntity<>("El ADMIN ya existe, intenta con otro. ", HttpStatus.BAD_REQUEST);
         }
         Usuarios usuarios = new Usuarios();
-        usuarios.setUsername(dtoRegistro.getUserName());
+        usuarios.setUsername(dtoRegistro.getUsername());
         usuarios.setPassword(passwordEncoder.encode(dtoRegistro.getPassword()));
         Roles roles = rolesRepository.findByName("ADMIN").get();
         usuarios.setRoles(Collections.singletonList(roles));

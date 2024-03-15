@@ -41,9 +41,9 @@ public class RestControllerProducto {
         Producto existeProducto = productoService.buscarProductoPorId(idProducto);
 
         if (producto != null) {
-            existeProducto.setNobreProducto(producto.getNobreProducto());
+            existeProducto.setNombreProducto(producto.getNombreProducto());
             existeProducto.setMarcaProducto(producto.getMarcaProducto());
-            existeProducto.setCantidadProdcuto(producto.getCantidadProdcuto());
+            existeProducto.setCantidadProducto(producto.getCantidadProducto());
             existeProducto.setPrecioProducto(producto.getPrecioProducto());
             existeProducto.setCategoriaProducto(producto.getCategoriaProducto());
             existeProducto.setUbicacionProducto(producto.getUbicacionProducto());
