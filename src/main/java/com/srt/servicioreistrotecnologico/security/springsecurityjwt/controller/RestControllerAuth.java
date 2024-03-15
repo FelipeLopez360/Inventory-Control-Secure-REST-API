@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth/")
@@ -39,16 +40,26 @@ public class RestControllerAuth {
         this.usuariosRepository = usuariosRepository;
         this.jwtGenerator = jwtGenerator;
     }
+
     // metodo para registro de usuarios con rol USER
     @PostMapping("registro")
     public ResponseEntity<String> registrar(@RequestBody DtoRegistro dtoRegistro){
         if (usuariosRepository.existsByUsername(dtoRegistro.getUsername())){
             return new ResponseEntity<>("El usuario ya existe, intenta con otro. ", HttpStatus.BAD_REQUEST);
         }
+        // Verificar si el rol "USER" ya existe en la base de datos
+        Roles roles = rolesRepository.findByName("USER");
+        if (roles == null) {
+            // Si no existe, crear el rol "USER" y guardarlo en la base de datos
+            roles = new Roles();
+            roles.setName("USER");
+            rolesRepository.save(roles);
+        }
+
+        // Crear el usuario y asociarlo con el rol "USER"
         Usuarios usuarios = new Usuarios();
         usuarios.setUsername(dtoRegistro.getUsername());
         usuarios.setPassword(passwordEncoder.encode(dtoRegistro.getPassword()));
-        Roles roles = rolesRepository.findByName("USER").get();
         usuarios.setRoles(Collections.singletonList(roles));
         usuariosRepository.save(usuarios);
         return new ResponseEntity<>("Registro de usuario exitoso.", HttpStatus.OK);
@@ -59,10 +70,19 @@ public class RestControllerAuth {
         if (usuariosRepository.existsByUsername(dtoRegistro.getUsername())){
             return new ResponseEntity<>("El ADMIN ya existe, intenta con otro. ", HttpStatus.BAD_REQUEST);
         }
+        // Verifica si el rol "ADMIN" ya existe en la base de datos
+        Roles roles = rolesRepository.findByName("ADMIN");
+        if (roles == null) {
+            // Si no existe, crear el rol "ADMIN" y guardarlo en la base de datos
+            roles = new Roles();
+            roles.setName("ADMIN");
+            rolesRepository.save(roles);
+        }
+
+        // Crear el usuario y asociarlo con el rol "ADMIN"
         Usuarios usuarios = new Usuarios();
         usuarios.setUsername(dtoRegistro.getUsername());
         usuarios.setPassword(passwordEncoder.encode(dtoRegistro.getPassword()));
-        Roles roles = rolesRepository.findByName("ADMIN").get();
         usuarios.setRoles(Collections.singletonList(roles));
         usuariosRepository.save(usuarios);
         return new ResponseEntity<>("Registro de ADMIN exitoso. ", HttpStatus.OK);
